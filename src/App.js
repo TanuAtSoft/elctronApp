@@ -1,23 +1,22 @@
-import logo from './logo.svg';
+import {useState} from "react"
 import './App.css';
 
 function App() {
+  const [display,setDisplay] = useState()
+  const handleClick=async()=>{
+    fetch('https://fakestoreapi.com/products')
+    .then(res=>res.json())
+    .then(json=>setDisplay(json))
+  
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <button onClick={handleClick}>Get Data</button>
+     {display && display.map((item,id)=>{
+      return(
+        <p key={id}>{item.title}</p>
+      )
+     })}
     </div>
   );
 }
